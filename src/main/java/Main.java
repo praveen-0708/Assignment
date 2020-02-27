@@ -1,26 +1,38 @@
-import com.assignment.WordFinder.FindWord;
-import com.assignment.WordFinder.WordLocation;
+import com.assignment.wordSearch.CharacterFinder.CharacterOccurrence;
+import com.assignment.wordSearch.WordFinder.FindWord;
+import com.assignment.wordSearch.WordFinder.WordLocation;
+import org.apache.log4j.Logger;
 
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws Exception {
+        Logger logger= Logger.getLogger(Main.class);
         String folderPath = "/home/praveenc/Downloads/SampleProject/src/main/webapp/files";
-//        com.assignment.WordFinder.WordOccurrenceMultipleFiles wordOccurrenceMultipleFiles=new com.assignment.WordFinder.WordOccurrenceMultipleFiles();
-//        Map<String,Integer> wordCount=wordOccurrenceMultipleFiles.wordOccurrence(folderPath);
-//        System.out.println("Word Count In All Files");
-//        for (Map.Entry<String,Integer> entry :wordCount.entrySet())
-//            System.out.println(entry);
-
         Scanner input=new Scanner(System.in);
-        System.out.println("Enter Folder Path:");
-        folderPath=input.nextLine();
+        /*System.out.println("Enter Folder Path:");
+        folderPath=input.nextLine();*/
         System.out.println("Enter word:");
-        String word=input.next();
+        String word=input.nextLine();
         FindWord findWord = new FindWord();
         List<WordLocation> wordLocations = findWord.getLocationOfWord(word, folderPath);
-        for (WordLocation wordLocation : wordLocations)
-            System.out.println(wordLocation.toString());
+        if(wordLocations.isEmpty()){
+            System.out.println("Word Not Found!!");
+            logger.info("Word Not Found!!");
+        }
+        else{
+            for (WordLocation wordLocation : wordLocations){
+                System.out.println(wordLocation.toString());
+                logger.info(wordLocation.toString());
+            }
+        }
+
+//        Sample sample=new Sample();
+//        sample.testEqual();
     }
 }
+

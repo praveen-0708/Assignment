@@ -1,6 +1,4 @@
-package com.assignment.WordFinder;
-
-import com.assignment.WordFinder.WordOccurrence;
+package com.assignment.wordSearch.WordFinder;
 
 import java.io.File;
 import java.util.Comparator;

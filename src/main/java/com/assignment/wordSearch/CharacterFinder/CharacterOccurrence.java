@@ -1,4 +1,4 @@
-package com.assignment.CharacterFinder;
+package com.assignment.wordSearch.CharacterFinder;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -7,8 +7,7 @@ import java.util.*;
 import java.util.Map.Entry;
 
 public class CharacterOccurrence {
-
-    public List<Entry<Character, Integer>> characterOccurrence(String filePath) throws Exception {
+    public Map<Character, Integer> characterOccurrence(String filePath) throws Exception {
         try {
             Map<Character, Integer> characterCount = new HashMap<Character, Integer>();
             File file = new File(filePath);
@@ -31,7 +30,10 @@ public class CharacterOccurrence {
                     return o2.getValue().compareTo(o1.getValue());
                 }
             });
-            return entryList;
+            characterCount.clear();
+            for(Entry<Character,Integer> entry:entryList)
+                characterCount.put(entry.getKey(),entry.getValue());
+            return characterCount;
         } catch (Exception e) {
             throw new Exception(e);
         }

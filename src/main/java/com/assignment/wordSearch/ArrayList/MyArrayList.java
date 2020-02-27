@@ -1,4 +1,4 @@
-package com.assignment.ArrayList;
+package com.assignment.wordSearch.ArrayList;
 
 import java.util.*;
 
