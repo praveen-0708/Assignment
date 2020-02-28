@@ -59,7 +59,7 @@ public class WordLocation {
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return this.word.hashCode()+this.fileName.hashCode()+this.lineNumber+this.position;
     }
 
     @Override
