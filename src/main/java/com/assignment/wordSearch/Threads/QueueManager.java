@@ -9,18 +9,18 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class QueueThread {
+public class QueueManager {
     Queue<File> queue = new LinkedList<>();
     List<WordLocation> wordLocations = new ArrayList<>();
     public synchronized void add(String folderPath){
         getAllFilesInDirectory(folderPath);
     }
-    public synchronized List<WordLocation> delete(String word) throws Exception {
+    public synchronized SearchResult delete(String word) throws Exception {
         FindWord findWord=new FindWord();
         while (!queue.isEmpty()){
             wordLocations.addAll(findWord.checkFileForWord(queue.remove(),word));
         }
-        return wordLocations;
+        return new SearchResult(wordLocations,wordLocations.size());
     }
     private void getAllFilesInDirectory(String folderPath){
         File folder = new File(folderPath);
