@@ -4,9 +4,10 @@ import com.assignment.wordSearch.WordFinder.WordLocation;
 import org.apache.log4j.Logger;
 
 import java.io.File;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
+import java.util.*;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingDeque;
 
 public class WordSearch {
     public void findWordInDirectory() throws Exception {
@@ -22,21 +23,32 @@ public class WordSearch {
         searchInput.setFolderPath(folderPath);
         searchInput.setWord(word);
 
-        Queue<File> queue = new LinkedList<>();
+        //Queue<File> queue = new LinkedList<>();
+        BlockingQueue<File> queue=new LinkedBlockingDeque<>();
+
         QueueBuilder queueBuilder = new QueueBuilder(queue, searchInput);
         QueueProcessor queueProcessor = new QueueProcessor(queue, searchInput);
 
-        Thread thread1 = new Thread(queueBuilder);
-        Thread thread2 = new Thread(queueProcessor);
-
-        thread1.start();
+        Thread builderThread = new Thread(queueBuilder);
+        builderThread.start();
+        System.out.println("Enter number of threads");
+        int numberOfThreads=input.nextInt();
         Thread.sleep(1000);
-        thread2.start();
+        builderThread.join();
 
-        thread1.join();
-        thread2.join();
-
+        Thread[] threads=new Thread[numberOfThreads];
+        for(int index=0;index<numberOfThreads;index++){
+            threads[index]=new Thread(queueProcessor,"Thread-"+(index+1));
+        }
+        for(int index=0;index<numberOfThreads;index++){
+            threads[index].start();
+        }
+        for(int index=0;index<numberOfThreads;index++){
+            threads[index].join();
+        }
         SearchResult searchResult = queueProcessor.getSearchResult();
+        Collections.sort(searchResult.getWordLocations());
+        logger.info("Result Word Locations:");
         if (searchResult.getWordLocations().isEmpty()) {
             //System.out.println("Word Not Found!!");
             logger.info("Word Not Found!!");

@@ -4,21 +4,22 @@ import com.assignment.wordSearch.Threads.SearchInput;
 
 import java.io.File;
 import java.util.Queue;
+import java.util.concurrent.BlockingQueue;
 
 public class QueueBuilder implements Runnable {
-    private Queue<File> queue;
+    private BlockingQueue<File> queue;
     private SearchInput searchInput;
 
-    public QueueBuilder(Queue<File> queue, SearchInput searchInput) {
+    public QueueBuilder(BlockingQueue<File> queue, SearchInput searchInput) {
         this.queue = queue;
         this.searchInput = searchInput;
     }
 
-    public Queue<File> getQueue() {
+    public BlockingQueue<File> getQueue() {
         return queue;
     }
 
-    public void setQueue(Queue<File> queue) {
+    public void setQueue(BlockingQueue<File> queue) {
         this.queue = queue;
     }
 
@@ -32,16 +33,20 @@ public class QueueBuilder implements Runnable {
 
     @Override
     public void run() {
-        getAllFilesInDirectory(this.searchInput.getFolderPath());
+        try {
+            getAllFilesInDirectory(this.searchInput.getFolderPath());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void getAllFilesInDirectory(String folderPath) {
+    private void getAllFilesInDirectory(String folderPath) throws InterruptedException {
         File folder = new File(folderPath);
         File[] fileList = folder.listFiles();
         if (fileList != null) {
             for (File file : fileList) {
                 if (file.isFile()) {
-                    this.queue.add(file);
+                    this.queue.put(file);
                 } else if (file.isDirectory()) {
                     getAllFilesInDirectory(file.getAbsolutePath());
                 }

@@ -1,9 +1,18 @@
-02-03-2020 17:42:53.053 [main] INFO  com.assignment.wordSearch.Threads.WordSearch  - Word=def filename=file1.txt, lineNumber=1, position=5
-02-03-2020 17:42:53.054 [main] INFO  com.assignment.wordSearch.Threads.WordSearch  - Word=def filename=file1.txt, lineNumber=6, position=4
-02-03-2020 17:42:53.055 [main] INFO  com.assignment.wordSearch.Threads.WordSearch  - Word=def filename=file2.txt, lineNumber=1, position=1
-02-03-2020 17:42:53.055 [main] INFO  com.assignment.wordSearch.Threads.WordSearch  - Word=def filename=file3.txt, lineNumber=1, position=1
-02-03-2020 17:42:53.055 [main] INFO  com.assignment.wordSearch.Threads.WordSearch  - Word=def filename=file4.txt, lineNumber=1, position=1
-02-03-2020 17:42:53.055 [main] INFO  com.assignment.wordSearch.Threads.WordSearch  - Word=def filename=file4.txt, lineNumber=4, position=13
-02-03-2020 17:42:53.055 [main] INFO  com.assignment.wordSearch.Threads.WordSearch  - Word=def filename=file4.txt, lineNumber=4, position=28
-02-03-2020 17:42:53.055 [main] INFO  com.assignment.wordSearch.Threads.WordSearch  - Word=def filename=file4.txt, lineNumber=5, position=1
-02-03-2020 17:42:53.055 [main] INFO  com.assignment.wordSearch.Threads.WordSearch  - Execution Time(in ms):3845
+03-03-2020 16:02:30.324 [Thread-1] INFO  com.assignment.wordSearch.Threads.WordSearch  - Word=def filename=file1.txt, lineNumber=1, position=5
+03-03-2020 16:02:30.325 [Thread-3] INFO  com.assignment.wordSearch.Threads.WordSearch  - Word=def filename=file3.txt, lineNumber=1, position=1
+03-03-2020 16:02:30.327 [Thread-3] INFO  com.assignment.wordSearch.Threads.WordSearch  - Word=def filename=file4.txt, lineNumber=1, position=1
+03-03-2020 16:02:30.327 [Thread-3] INFO  com.assignment.wordSearch.Threads.WordSearch  - Word=def filename=file4.txt, lineNumber=4, position=13
+03-03-2020 16:02:30.328 [Thread-3] INFO  com.assignment.wordSearch.Threads.WordSearch  - Word=def filename=file4.txt, lineNumber=4, position=28
+03-03-2020 16:02:30.328 [Thread-3] INFO  com.assignment.wordSearch.Threads.WordSearch  - Word=def filename=file4.txt, lineNumber=5, position=1
+03-03-2020 16:02:30.327 [Thread-1] INFO  com.assignment.wordSearch.Threads.WordSearch  - Word=def filename=file1.txt, lineNumber=6, position=4
+03-03-2020 16:02:30.328 [Thread-1] INFO  com.assignment.wordSearch.Threads.WordSearch  - Word=def filename=file2.txt, lineNumber=1, position=1
+03-03-2020 16:02:30.329 [main] INFO  com.assignment.wordSearch.Threads.WordSearch  - Result Word Locations:
+03-03-2020 16:02:30.329 [main] INFO  com.assignment.wordSearch.Threads.WordSearch  - Word=def filename=file1.txt, lineNumber=1, position=5
+03-03-2020 16:02:30.329 [main] INFO  com.assignment.wordSearch.Threads.WordSearch  - Word=def filename=file1.txt, lineNumber=6, position=4
+03-03-2020 16:02:30.329 [main] INFO  com.assignment.wordSearch.Threads.WordSearch  - Word=def filename=file2.txt, lineNumber=1, position=1
+03-03-2020 16:02:30.329 [main] INFO  com.assignment.wordSearch.Threads.WordSearch  - Word=def filename=file3.txt, lineNumber=1, position=1
+03-03-2020 16:02:30.329 [main] INFO  com.assignment.wordSearch.Threads.WordSearch  - Word=def filename=file4.txt, lineNumber=1, position=1
+03-03-2020 16:02:30.329 [main] INFO  com.assignment.wordSearch.Threads.WordSearch  - Word=def filename=file4.txt, lineNumber=4, position=13
+03-03-2020 16:02:30.330 [main] INFO  com.assignment.wordSearch.Threads.WordSearch  - Word=def filename=file4.txt, lineNumber=4, position=28
+03-03-2020 16:02:30.330 [main] INFO  com.assignment.wordSearch.Threads.WordSearch  - Word=def filename=file4.txt, lineNumber=5, position=1
+03-03-2020 16:02:30.330 [main] INFO  com.assignment.wordSearch.Threads.WordSearch  - Execution Time(in ms):3785
