@@ -32,18 +32,17 @@ public class QueueBuilder implements Runnable {
 
     @Override
     public void run() {
-        getAllFilesInDirectory(this.searchInput.getFolderPath());
+        getAllFilesInDirectory(new File(this.searchInput.getFolderPath()));
     }
 
-    private void getAllFilesInDirectory(String folderPath) {
-        File folder = new File(folderPath);
+    private void getAllFilesInDirectory(File folder) {
         File[] fileList = folder.listFiles();
         if (fileList != null) {
             for (File file : fileList) {
                 if (file.isFile()) {
                     this.queue.add(file);
                 } else if (file.isDirectory()) {
-                    getAllFilesInDirectory(file.getAbsolutePath());
+                    getAllFilesInDirectory(file);
                 }
             }
         }
