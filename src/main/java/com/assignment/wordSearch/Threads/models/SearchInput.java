@@ -1,4 +1,4 @@
-package com.assignment.wordSearch.Threads;
+package com.assignment.wordSearch.Threads.models;
 
 public class SearchInput {
     private String word;

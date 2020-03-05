@@ -1,9 +1,8 @@
 package com.assignment.wordSearch.Threads;
 
-import com.assignment.wordSearch.Threads.SearchInput;
+import com.assignment.wordSearch.Threads.models.SearchInput;
 
 import java.io.File;
-import java.util.Queue;
 import java.util.concurrent.BlockingQueue;
 
 public class QueueBuilder implements Runnable {
@@ -33,20 +32,16 @@ public class QueueBuilder implements Runnable {
 
     @Override
     public void run() {
-        try {
-            getAllFilesInDirectory(this.searchInput.getFolderPath());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        getAllFilesInDirectory(this.searchInput.getFolderPath());
     }
 
-    private void getAllFilesInDirectory(String folderPath) throws InterruptedException {
+    private void getAllFilesInDirectory(String folderPath) {
         File folder = new File(folderPath);
         File[] fileList = folder.listFiles();
         if (fileList != null) {
             for (File file : fileList) {
                 if (file.isFile()) {
-                    this.queue.put(file);
+                    this.queue.add(file);
                 } else if (file.isDirectory()) {
                     getAllFilesInDirectory(file.getAbsolutePath());
                 }

@@ -7,42 +7,27 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FindWord {
-    public List<WordLocation> getLocationOfWord(String word, String folderPath) throws Exception {
-        List<WordLocation> wordLocations = new ArrayList<>();
-        wordLocations = getAllFilesInDirectory(folderPath, wordLocations, word);
-        return wordLocations;
-    }
-
-    public List<WordLocation> getAllFilesInDirectory(String folderPath, List<WordLocation> wordLocationList, String word) throws Exception {
-        File folder = new File(folderPath);
-        File[] fileList = folder.listFiles();
-        if (fileList != null) {
-            for (File file : fileList) {
-                if (file.isFile()) {
-                    wordLocationList.addAll(checkFileForWord(file, word));
-                } else if (file.isDirectory()) {
-                    wordLocationList=getAllFilesInDirectory(file.getAbsolutePath(), wordLocationList, word);
+    public List<IndividualSearchResult> checkFileForWord(File file, String word) {
+        List<IndividualSearchResult> wordLocationsPerFile = new ArrayList<>();
+        FileReader fileReader = null;
+        try {
+            fileReader = new FileReader(file);
+            LineNumberReader lineNumberReader = new LineNumberReader(fileReader);
+            String line;
+            while ((line = lineNumberReader.readLine()) != null) {
+                Matcher matcher = Pattern.compile(word).matcher(line);
+                while (matcher.find()) {
+                    IndividualSearchResult individualSearchResult = new IndividualSearchResult();
+                    individualSearchResult.setWord(matcher.group());
+                    individualSearchResult.setFileName(file.getName());
+                    individualSearchResult.setPosition(matcher.start() + 1);
+                    individualSearchResult.setLineNumber(lineNumberReader.getLineNumber());
+                    wordLocationsPerFile.add(individualSearchResult);
                 }
             }
         }
-        return wordLocationList;
-    }
-
-    public List<WordLocation> checkFileForWord(File file, String word) throws Exception {
-        List<WordLocation> wordLocationsPerFile = new ArrayList<>();
-        FileReader fileReader = new FileReader(file);
-        LineNumberReader lineNumberReader = new LineNumberReader(fileReader);
-        String line;
-        while ((line = lineNumberReader.readLine()) != null) {
-            Matcher matcher = Pattern.compile(word).matcher(line);
-            while (matcher.find()) {
-                WordLocation wordLocation = new WordLocation();
-                wordLocation.setWord(matcher.group());
-                wordLocation.setFileName(file.getName());
-                wordLocation.setPosition(matcher.start() + 1);
-                wordLocation.setLineNumber(lineNumberReader.getLineNumber());
-                wordLocationsPerFile.add(wordLocation);
-            }
+         catch (Exception e) {
+            throw new RuntimeException("error in FindWord");
         }
         return wordLocationsPerFile;
     }

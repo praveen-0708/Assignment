@@ -1,20 +1,20 @@
 package com.assignment.wordSearch.WordFinder;
 
 
-public class WordLocation implements Comparable<WordLocation> {
+public class IndividualSearchResult implements Comparable<IndividualSearchResult> {
     private String word;
     private String fileName;
     private int lineNumber;
     private int position;
 
-    public WordLocation(String word, String fileName, int lineNumber, int position) {
+    public IndividualSearchResult(String word, String fileName, int lineNumber, int position) {
         this.word = word;
         this.fileName = fileName;
         this.lineNumber = lineNumber;
         this.position = position;
     }
 
-    public WordLocation() {
+    public IndividualSearchResult() {
 
     }
 
@@ -69,19 +69,19 @@ public class WordLocation implements Comparable<WordLocation> {
     public boolean equals(Object obj) {
         if (obj == this)
             return true;
-        if (!(obj instanceof WordLocation))
+        if (!(obj instanceof IndividualSearchResult))
             return false;
 
-        WordLocation wordLocation = (WordLocation) obj;
-        return (wordLocation.getWord().equals(this.word) &&
-                wordLocation.getFileName().equals(this.fileName) &&
-                wordLocation.getLineNumber() == this.lineNumber &&
-                wordLocation.getPosition() == this.position
+        IndividualSearchResult individualSearchResult = (IndividualSearchResult) obj;
+        return (individualSearchResult.getWord().equals(this.word) &&
+                individualSearchResult.getFileName().equals(this.fileName) &&
+                individualSearchResult.getLineNumber() == this.lineNumber &&
+                individualSearchResult.getPosition() == this.position
         );
     }
 
     @Override
-    public int compareTo(WordLocation o) {
+    public int compareTo(IndividualSearchResult o) {
         if (this.getFileName().equals(o.getFileName())) {
             if (this.getLineNumber() == o.getLineNumber()) {
                 return Integer.compare(this.getPosition(), o.getPosition());

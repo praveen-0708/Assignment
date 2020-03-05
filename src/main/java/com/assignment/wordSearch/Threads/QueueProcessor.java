@@ -1,21 +1,21 @@
 package com.assignment.wordSearch.Threads;
 
+import com.assignment.wordSearch.Threads.models.SearchInput;
+import com.assignment.wordSearch.Threads.models.SearchResult;
 import com.assignment.wordSearch.WordFinder.FindWord;
-import com.assignment.wordSearch.WordFinder.WordLocation;
+import com.assignment.wordSearch.WordFinder.IndividualSearchResult;
 import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Queue;
 import java.util.concurrent.BlockingQueue;
 
 public class QueueProcessor implements Runnable {
     private BlockingQueue<File> queue;
     private SearchResult searchResult;
     private SearchInput searchInput;
-    private static Logger logger = Logger.getLogger(WordSearch.class);
+    private static Logger logger = Logger.getLogger(WordSearchMultiThread.class);
     public QueueProcessor() {
     }
 
@@ -33,7 +33,7 @@ public class QueueProcessor implements Runnable {
         this.searchInput = searchInput;
     }
 
-    public Queue<File> getQueue() {
+    public BlockingQueue<File> getQueue() {
         return queue;
     }
 
@@ -53,18 +53,16 @@ public class QueueProcessor implements Runnable {
     public void run() {
         try {
             FindWord findWord = new FindWord();
-            List<WordLocation> wordLocations = new ArrayList<>();
+            List<IndividualSearchResult> individualSearchResults = new ArrayList<>();
             while (!queue.isEmpty()) {
-                wordLocations.addAll(findWord.checkFileForWord(queue.take(), this.searchInput.getWord()));
+                individualSearchResults.addAll(findWord.checkFileForWord(queue.take(), this.searchInput.getWord()));
             }
-            this.searchResult.appendWordLocations(wordLocations);
-            this.searchResult.addNumberOfResults(wordLocations.size());
-            for (WordLocation wordLocation : wordLocations) {
-                //System.out.println(wordLocation.toString());
-                logger.info(wordLocation.toString());
+            this.searchResult.appendWordLocations(individualSearchResults);
+            for (IndividualSearchResult individualSearchResult : individualSearchResults) {
+                logger.info(individualSearchResult.toString());
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException("Exception in QueueProcessor");
         }
     }
 }
