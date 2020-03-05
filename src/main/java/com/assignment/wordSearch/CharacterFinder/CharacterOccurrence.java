@@ -8,11 +8,13 @@ import java.util.Map.Entry;
 
 public class CharacterOccurrence {
     public Map<Character, Integer> characterOccurrence(String filePath) throws Exception {
+        FileReader fileReader = null;
+        BufferedReader bufferedReader = null;
         try {
             Map<Character, Integer> characterCount = new HashMap<Character, Integer>();
             File file = new File(filePath);
-            FileReader fileReader = new FileReader(file);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            fileReader = new FileReader(file);
+            bufferedReader = new BufferedReader(fileReader);
             int asciiValue;
             while ((asciiValue = bufferedReader.read()) != -1) {
                 char character = (char) asciiValue;
@@ -31,11 +33,14 @@ public class CharacterOccurrence {
                 }
             });
             characterCount.clear();
-            for(Entry<Character,Integer> entry:entryList)
-                characterCount.put(entry.getKey(),entry.getValue());
+            for (Entry<Character, Integer> entry : entryList)
+                characterCount.put(entry.getKey(), entry.getValue());
             return characterCount;
         } catch (Exception e) {
             throw new Exception(e);
+        } finally {
+            fileReader.close();
+            bufferedReader.close();
         }
     }
 

@@ -3,7 +3,6 @@ import com.assignment.wordSearch.Threads.models.SearchInput;
 import com.assignment.wordSearch.Threads.models.SearchResult;
 import com.assignment.wordSearch.Threads.WordSearch;
 import com.assignment.wordSearch.Threads.WordSearchMultiThread;
-
 import java.util.Scanner;
 
 public class Main {
@@ -21,4 +20,5 @@ public class Main {
         SearchResult searchResult=wordSearch.findWordInDirectory(searchInput);
     }
 }
+//todo builder pattern, single thread, while loop
 

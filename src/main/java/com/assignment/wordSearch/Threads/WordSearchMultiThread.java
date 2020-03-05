@@ -10,11 +10,13 @@ import java.util.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 
-public class WordSearchMultiThread implements WordSearch{
+public class WordSearchMultiThread implements WordSearch {
+
     private Logger logger = Logger.getLogger(WordSearchMultiThread.class);
-    private final static int NUMBER_OF_THREADS=5;
+    private final static int NUMBER_OF_THREADS = 5;
+
     @Override
-    public SearchResult findWordInDirectory(SearchInput searchInput){
+    public SearchResult findWordInDirectory(SearchInput searchInput) {
         try {
             long startTime = System.currentTimeMillis();
             BlockingQueue<File> queue = new LinkedBlockingDeque<>();
@@ -22,7 +24,7 @@ public class WordSearchMultiThread implements WordSearch{
             QueueProcessor queueProcessor = new QueueProcessor(queue, searchInput);
             Thread builderThread = new Thread(queueBuilder);
             builderThread.start();
-//            Thread.sleep(1000);
+            Thread.sleep(1000);
 
             int numberOfThreads = NUMBER_OF_THREADS;
             Thread[] threads = new Thread[numberOfThreads];
@@ -49,9 +51,8 @@ public class WordSearchMultiThread implements WordSearch{
             long executionTime = (endTime - startTime);
             logger.info("Execution Time(in ms):" + executionTime);
             return searchResult;
-        }
-        catch (Exception e){
-            logger.error("error",e);
+        } catch (Exception e) {
+            logger.error("error", e);
             throw new RuntimeException("Exception in MultiThread");
         }
     }

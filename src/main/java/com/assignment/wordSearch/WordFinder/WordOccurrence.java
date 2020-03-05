@@ -3,17 +3,20 @@ package com.assignment.wordSearch.WordFinder;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 public class WordOccurrence {
     public Map<String, Integer> wordOccurrence(String filePath) throws Exception {
+        FileReader fileReader = null;
+        BufferedReader bufferedReader = null;
         try {
             HashMap<String, Integer> wordCount = new HashMap<String, Integer>();
             File file = new File(filePath);
-            FileReader fileReader = new FileReader(file);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            fileReader = new FileReader(file);
+            bufferedReader = new BufferedReader(fileReader);
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 String[] eachLine = line.split(" ");
@@ -28,6 +31,16 @@ public class WordOccurrence {
                             (e1, e2) -> e1, LinkedHashMap::new));
         } catch (Exception e) {
             throw new Exception(e);
+        }
+        finally {
+            try {
+                if(fileReader!=null)
+                    fileReader.close();
+                if(bufferedReader!=null)
+                    bufferedReader.close();
+            } catch (IOException e) {
+                throw new RuntimeException("Error in closing readers");
+            }
         }
     }
 }

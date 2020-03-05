@@ -3,11 +3,14 @@ import com.assignment.wordSearch.Threads.models.SearchInput;
 import com.assignment.wordSearch.Threads.models.SearchResult;
 import com.assignment.wordSearch.WordFinder.FindWord;
 import com.assignment.wordSearch.WordFinder.IndividualSearchResult;
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
@@ -101,5 +104,27 @@ public class WordSearchTest {
         List<IndividualSearchResult> wordLocationsActual=searchResult.getIndividualSearchResults();
         Assert.assertEquals(wordLocationsExpected,wordLocationsActual);
         Assert.assertEquals(8,searchResult.getNumberOfResults());
+    }
+
+    @Test
+    public void wordSearchTest() throws IOException {
+        String folderPath = "/home/praveenc/Downloads/SampleProject/src/main/webapp/files";
+        SearchInput searchInput=new SearchInput("def",folderPath);
+        Gson gson=new Gson();
+        FileReader fileReader= null;
+        try {
+            fileReader = new FileReader("/home/praveenc/Desktop/result.json");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException("Error in reading the file");
+        }
+        JsonReader jsonReader=new JsonReader(fileReader);
+        IndividualSearchResult[] individualSearchResults=gson.fromJson(jsonReader,IndividualSearchResult[].class);
+        List<IndividualSearchResult> expectedResult= Arrays.asList(individualSearchResults);
+
+        WordSearch wordSearch=new WordSearchMultiThread();
+        SearchResult searchResult=wordSearch.findWordInDirectory(searchInput);
+        Assert.assertEquals(expectedResult,searchResult.getIndividualSearchResults());
+        fileReader.close();
+        jsonReader.close();
     }
 }

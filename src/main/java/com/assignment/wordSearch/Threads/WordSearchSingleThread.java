@@ -4,16 +4,18 @@ import com.assignment.wordSearch.Threads.models.SearchInput;
 import com.assignment.wordSearch.Threads.models.SearchResult;
 import com.assignment.wordSearch.WordFinder.IndividualSearchResult;
 import org.apache.log4j.Logger;
+
 import java.io.File;
 import java.util.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 
 
-public class WordSearchSingleThread implements WordSearch{
+public class WordSearchSingleThread implements WordSearch {
     private Logger logger = Logger.getLogger(WordSearchSingleThread.class);
+
     @Override
-    public SearchResult findWordInDirectory(SearchInput searchInput){
+    public SearchResult findWordInDirectory(SearchInput searchInput) {
         try {
             long startTime = System.currentTimeMillis();
             BlockingQueue<File> queue = new LinkedBlockingDeque<>();
@@ -36,9 +38,8 @@ public class WordSearchSingleThread implements WordSearch{
             long executionTime = (endTime - startTime);
             logger.info("Execution Time(in ms):" + executionTime);
             return searchResult;
-        }
-        catch (Exception e){
-            logger.error("error",e);
+        } catch (Exception e) {
+            logger.error("error", e);
             throw new RuntimeException("Exception in MultiThread");
         }
     }

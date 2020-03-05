@@ -54,13 +54,14 @@ public class QueueProcessor implements Runnable {
         try {
             FindWord findWord = new FindWord();
             List<IndividualSearchResult> individualSearchResults = new ArrayList<>();
+            //QueueBuilder queueBuilder=new QueueBuilder();
             while (!queue.isEmpty()) {
                 individualSearchResults.addAll(findWord.checkFileForWord(queue.take(), this.searchInput.getWord()));
             }
             this.searchResult.appendWordLocations(individualSearchResults);
-            for (IndividualSearchResult individualSearchResult : individualSearchResults) {
-                logger.info(individualSearchResult.toString());
-            }
+//            for (IndividualSearchResult individualSearchResult : individualSearchResults) {
+//                logger.info(individualSearchResult.toString());
+//            }
         } catch (Exception e) {
             throw new RuntimeException("Exception in QueueProcessor");
         }
