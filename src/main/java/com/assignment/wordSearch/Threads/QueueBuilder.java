@@ -8,7 +8,7 @@ import java.util.concurrent.BlockingQueue;
 public class QueueBuilder implements Runnable {
     private BlockingQueue<File> queue;
     private SearchInput searchInput;
-    private boolean flag;
+    private boolean fileBuilderCompleted;
 
     public QueueBuilder(){
 
@@ -16,15 +16,15 @@ public class QueueBuilder implements Runnable {
     public QueueBuilder(BlockingQueue<File> queue, SearchInput searchInput) {
         this.queue = queue;
         this.searchInput = searchInput;
-        this.flag=false;
+        this.fileBuilderCompleted =false;
     }
 
-    public boolean getFlag() {
-        return flag;
+    public boolean isFileBuilderCompleted() {
+        return fileBuilderCompleted;
     }
 
-    public void setFlag(boolean flag) {
-        this.flag = flag;
+    public void setFileBuilderCompleted(boolean fileBuilderCompleted) {
+        this.fileBuilderCompleted = fileBuilderCompleted;
     }
 
     public BlockingQueue<File> getQueue() {
@@ -45,18 +45,18 @@ public class QueueBuilder implements Runnable {
 
     @Override
     public void run() {
-        getAllFilesInDirectory(new File(this.searchInput.getFolderPath()));
-        setFlag(true);
+        populateAllFilesInDirectory(new File(this.searchInput.getFolderPath()));
+        this.fileBuilderCompleted = true;
     }
 
-    private void getAllFilesInDirectory(File folder) {
+    private void populateAllFilesInDirectory(File folder) {
         File[] fileList = folder.listFiles();
         if (fileList != null) {
             for (File file : fileList) {
                 if (file.isFile()) {
                     this.queue.add(file);
                 } else if (file.isDirectory()) {
-                    getAllFilesInDirectory(file);
+                    populateAllFilesInDirectory(file);
                 }
             }
         }

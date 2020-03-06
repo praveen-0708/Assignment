@@ -64,10 +64,10 @@ public class QueueProcessor implements Runnable {
         try {
             FindWord findWord = new FindWord();
             List<IndividualSearchResult> individualSearchResults = new ArrayList<>();
-            while (!getQueueBuilder().getFlag() || !queue.isEmpty()) {
-                individualSearchResults.addAll(findWord.checkFileForWord(queue.take(), this.searchInput.getWord()));
+            while (!getQueueBuilder().isFileBuilderCompleted() || !queue.isEmpty()) {
+                individualSearchResults.addAll(findWord.checkFileForWord(queue.take(), searchInput.getWord()));
             }
-            this.searchResult.appendWordLocations(individualSearchResults);
+            searchResult.appendWordLocations(individualSearchResults);
 //            for (IndividualSearchResult individualSearchResult : individualSearchResults) {
 //                logger.info(individualSearchResult.toString());
 //            }

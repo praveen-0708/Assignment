@@ -46,27 +46,4 @@ public class FindWord {
         }
         return wordLocationsPerFile;
     }
-    public SearchResult getLocationOfWord(SearchInput searchInput) throws Exception {
-        List<IndividualSearchResult> wordLocations = new ArrayList<>();
-        wordLocations = getAllFilesInDirectory(searchInput.getFolderPath(), wordLocations, searchInput.getWord());
-        SearchResult searchResult=new SearchResult();
-        searchResult.setIndividualSearchResults(wordLocations);
-        searchResult.setNumberOfResults(wordLocations.size());
-        return searchResult;
-    }
-
-    private List<IndividualSearchResult> getAllFilesInDirectory(String folderPath, List<IndividualSearchResult> wordLocationList, String word) throws Exception {
-        File folder = new File(folderPath);
-        File[] fileList = folder.listFiles();
-        if (fileList != null) {
-            for (File file : fileList) {
-                if (file.isFile()) {
-                    wordLocationList.addAll(checkFileForWord(file, word));
-                } else if (file.isDirectory()) {
-                    wordLocationList=getAllFilesInDirectory(file.getAbsolutePath(), wordLocationList, word);
-                }
-            }
-        }
-        return wordLocationList;
-    }
 }

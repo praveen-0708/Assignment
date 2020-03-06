@@ -37,16 +37,6 @@ public class WordSearchMultiThread implements WordSearch {
             }
             SearchResult searchResult = queueProcessor.getSearchResult();
             Collections.sort(searchResult.getIndividualSearchResults());
-            logger.info("Result Word Locations:");
-            if (searchResult.getIndividualSearchResults().isEmpty()) {
-                //System.out.println("Word Not Found!!");
-                logger.info("Word Not Found!!");
-            } else {
-                for (IndividualSearchResult individualSearchResult : searchResult.getIndividualSearchResults()) {
-                    //System.out.println(wordLocation.toString());
-                    logger.info(individualSearchResult.toString());
-                }
-            }
             long endTime = System.currentTimeMillis();
             long executionTime = (endTime - startTime);
             logger.info("Execution Time(in ms):" + executionTime);

@@ -72,6 +72,16 @@ public class MyArrayList<E> implements List<E> {
     }
 
     @Override
+    public void add(int index, E element) {
+
+    }
+
+    @Override
+    public E remove(int index) {
+        return null;
+    }
+
+    @Override
     public int indexOf(Object o) {
         for (int i = 0; i < size; i++)
             if (o.equals(dataArray[i]))
@@ -93,15 +103,16 @@ public class MyArrayList<E> implements List<E> {
                 return i;
         return -1;
     }
+    @Override
+    public Object[] toArray() {
+        return Arrays.copyOf(dataArray,size);
+    }
+
+
 
     @Override
     public Iterator iterator() {
         return null;
-    }
-
-    @Override
-    public Object[] toArray() {
-        return new Object[0];
     }
 
     @Override
@@ -120,15 +131,6 @@ public class MyArrayList<E> implements List<E> {
     }
 
 
-    @Override
-    public void add(int index, Object element) {
-
-    }
-
-    @Override
-    public E remove(int index) {
-        return null;
-    }
 
     @Override
     public ListIterator listIterator() {
