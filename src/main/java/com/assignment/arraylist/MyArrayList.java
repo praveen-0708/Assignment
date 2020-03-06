@@ -6,28 +6,28 @@ public class MyArrayList<E> implements List<E> {
     private static final int DEFAULT_SIZE = 10;
     private Object[] dataArray;
     private int size;
-    public MyArrayList(int sizeOfArrayList){
-        this.size=0;
-        if(sizeOfArrayList>=0){
-            this.dataArray=new Object[sizeOfArrayList];
-        }
-        else
+
+    public MyArrayList(int sizeOfArrayList) {
+        this.size = 0;
+        if (sizeOfArrayList >= 0) {
+            this.dataArray = new Object[sizeOfArrayList];
+        } else
             throw new IllegalArgumentException("ArrayList size cannot be negative");
     }
 
-    public MyArrayList(){
-        this.size=0;
-        this.dataArray=new Object[DEFAULT_SIZE];
+    public MyArrayList() {
+        this.size = 0;
+        this.dataArray = new Object[DEFAULT_SIZE];
     }
 
-    private void increaseArraySize(){
-        int oldSize=dataArray.length;
-        int newSize=oldSize + (oldSize>>1);
-        dataArray= Arrays.copyOf(dataArray,newSize);
+    private void increaseArraySize() {
+        int oldSize = dataArray.length;
+        int newSize = oldSize + (oldSize >> 1);
+        dataArray = Arrays.copyOf(dataArray, newSize);
     }
 
-    private void checkSize(int requiredSize){
-        if(requiredSize>this.dataArray.length)
+    private void checkSize(int requiredSize) {
+        if (requiredSize > this.dataArray.length)
             increaseArraySize();
     }
 
@@ -38,18 +38,19 @@ public class MyArrayList<E> implements List<E> {
 
     @Override
     public boolean isEmpty() {
-        return size==0;
+        return size == 0;
     }
 
     @Override
     public boolean add(E newData) {
-        checkSize(size+1);
-        dataArray[size++]=newData;
+        checkSize(size + 1);
+        dataArray[size++] = newData;
         return true;
     }
+
     @Override
     public E get(int index) {
-        if(index>=0 && index<size)
+        if (index >= 0 && index < size)
             return (E) dataArray[index];
         else
             throw new IllegalArgumentException("invalid index");
@@ -57,24 +58,24 @@ public class MyArrayList<E> implements List<E> {
 
     @Override
     public boolean contains(Object o) {
-        for(int i=0;i<size;i++)
-            if(o.equals(dataArray[i]))
+        for (int i = 0; i < size; i++)
+            if (o.equals(dataArray[i]))
                 return true;
         return false;
     }
 
     @Override
     public E set(int index, E element) {
-        E oldData=get(index);
-        dataArray[index]=element;
+        E oldData = get(index);
+        dataArray[index] = element;
         return oldData;
     }
 
     @Override
     public int indexOf(Object o) {
         for (int i = 0; i < size; i++)
-        if (o.equals(dataArray[i]))
-            return i;
+            if (o.equals(dataArray[i]))
+                return i;
         return -1;
     }
 
@@ -87,7 +88,7 @@ public class MyArrayList<E> implements List<E> {
 
     @Override
     public int lastIndexOf(Object o) {
-        for (int i = size-1; i >= 0; i--)
+        for (int i = size - 1; i >= 0; i--)
             if (o.equals(dataArray[i]))
                 return i;
         return -1;

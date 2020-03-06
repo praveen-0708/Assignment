@@ -20,5 +20,5 @@ public class Main {
         SearchResult searchResult=wordSearch.findWordInDirectory(searchInput);
     }
 }
-//todo builder pattern, single thread, while loop
+//todo arraylist
 

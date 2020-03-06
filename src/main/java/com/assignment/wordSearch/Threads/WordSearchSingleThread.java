@@ -2,13 +2,11 @@ package com.assignment.wordSearch.Threads;
 
 import com.assignment.wordSearch.Threads.models.SearchInput;
 import com.assignment.wordSearch.Threads.models.SearchResult;
+import com.assignment.wordSearch.WordFinder.FindWord;
 import com.assignment.wordSearch.WordFinder.IndividualSearchResult;
 import org.apache.log4j.Logger;
-
-import java.io.File;
 import java.util.*;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingDeque;
+
 
 
 public class WordSearchSingleThread implements WordSearch {
@@ -18,12 +16,8 @@ public class WordSearchSingleThread implements WordSearch {
     public SearchResult findWordInDirectory(SearchInput searchInput) {
         try {
             long startTime = System.currentTimeMillis();
-            BlockingQueue<File> queue = new LinkedBlockingDeque<>();
-            QueueBuilder queueBuilder = new QueueBuilder(queue, searchInput);
-            queueBuilder.run();
-            QueueProcessor queueProcessor = new QueueProcessor(queue, searchInput);
-            queueProcessor.run();
-            SearchResult searchResult = queueProcessor.getSearchResult();
+            FindWord findWord=new FindWord();
+            SearchResult searchResult = findWord.getLocationOfWord(searchInput);
             Collections.sort(searchResult.getIndividualSearchResults());
             if (searchResult.getIndividualSearchResults().isEmpty()) {
                 //System.out.println("Word Not Found!!");

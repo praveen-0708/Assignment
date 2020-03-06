@@ -46,7 +46,6 @@ public class QueueBuilder implements Runnable {
     @Override
     public void run() {
         getAllFilesInDirectory(new File(this.searchInput.getFolderPath()));
-        System.out.println("completed");
         setFlag(true);
     }
 

@@ -21,7 +21,7 @@ public class WordSearchMultiThread implements WordSearch {
             long startTime = System.currentTimeMillis();
             BlockingQueue<File> queue = new LinkedBlockingDeque<>();
             QueueBuilder queueBuilder = new QueueBuilder(queue, searchInput);
-            QueueProcessor queueProcessor = new QueueProcessor(queue, searchInput);
+            QueueProcessor queueProcessor = new QueueProcessor(queue, searchInput,queueBuilder);
             Thread builderThread = new Thread(queueBuilder);
             builderThread.start();
             Thread.sleep(1000);

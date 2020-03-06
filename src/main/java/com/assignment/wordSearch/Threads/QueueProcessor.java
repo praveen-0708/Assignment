@@ -15,14 +15,16 @@ public class QueueProcessor implements Runnable {
     private BlockingQueue<File> queue;
     private SearchResult searchResult;
     private SearchInput searchInput;
+    private QueueBuilder queueBuilder;
     private static Logger logger = Logger.getLogger(WordSearchMultiThread.class);
     public QueueProcessor() {
     }
 
-    public QueueProcessor(BlockingQueue<File> queue, SearchInput searchInput) {
+    public QueueProcessor(BlockingQueue<File> queue, SearchInput searchInput,QueueBuilder queueBuilder) {
         this.queue = queue;
         this.searchInput = searchInput;
         this.searchResult = new SearchResult();
+        this.queueBuilder=queueBuilder;
     }
 
     public SearchInput getSearchInput() {
@@ -49,13 +51,20 @@ public class QueueProcessor implements Runnable {
         this.searchResult = searchResult;
     }
 
+    public QueueBuilder getQueueBuilder() {
+        return queueBuilder;
+    }
+
+    public void setQueueBuilder(QueueBuilder queueBuilder) {
+        this.queueBuilder = queueBuilder;
+    }
+
     @Override
     public void run() {
         try {
             FindWord findWord = new FindWord();
             List<IndividualSearchResult> individualSearchResults = new ArrayList<>();
-            //QueueBuilder queueBuilder=new QueueBuilder();
-            while (!queue.isEmpty()) {
+            while (!getQueueBuilder().getFlag() || !queue.isEmpty()) {
                 individualSearchResults.addAll(findWord.checkFileForWord(queue.take(), this.searchInput.getWord()));
             }
             this.searchResult.appendWordLocations(individualSearchResults);
