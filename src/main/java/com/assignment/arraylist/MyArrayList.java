@@ -27,8 +27,9 @@ public class MyArrayList<E> implements List<E> {
     }
 
     private void checkSize(int requiredSize) {
-        if (requiredSize > this.dataArray.length)
+        if (requiredSize > this.dataArray.length) {
             increaseArraySize();
+        }
     }
 
     @Override
@@ -58,9 +59,11 @@ public class MyArrayList<E> implements List<E> {
 
     @Override
     public boolean contains(Object o) {
-        for (int i = 0; i < size; i++)
-            if (o.equals(dataArray[i]))
+        for (int i = 0; i < size; i++) {
+            if (o.equals(dataArray[i])) {
                 return true;
+            }
+        }
         return false;
     }
 
@@ -69,16 +72,6 @@ public class MyArrayList<E> implements List<E> {
         E oldData = get(index);
         dataArray[index] = element;
         return oldData;
-    }
-
-    @Override
-    public void add(int index, E element) {
-
-    }
-
-    @Override
-    public E remove(int index) {
-        return null;
     }
 
     @Override
@@ -103,34 +96,153 @@ public class MyArrayList<E> implements List<E> {
                 return i;
         return -1;
     }
+
     @Override
-    public Object[] toArray() {
-        return Arrays.copyOf(dataArray,size);
+    public void add(int index, Object element) {
+        if (index > size || index < 0)
+            throw new IndexOutOfBoundsException("Index Out of Bounds");
+        checkSize(size + 1);
+        System.arraycopy(dataArray, index, dataArray, index + 1, size - index);
+        dataArray[index] = element;
+        size++;
     }
 
-
+    @Override
+    public E remove(int index) {
+        if (index < 0 || index >= size)
+            throw new IndexOutOfBoundsException("index out of bounds");
+        E oldElement = (E) dataArray[index];
+        int newPosition = size - index - 1;
+        if (newPosition > 0)
+            System.arraycopy(dataArray, index + 1, dataArray, index, newPosition);
+        dataArray[--size] = null;
+        return oldElement;
+    }
 
     @Override
-    public Iterator iterator() {
-        return null;
+    public Object[] toArray() {
+        return Arrays.copyOf(dataArray, size);
     }
 
     @Override
     public boolean remove(Object o) {
+        for (int index = 0; index < size; index++)
+            if (o.equals(dataArray[index])) {
+                remove(index);
+                return true;
+            }
         return false;
     }
 
     @Override
     public boolean addAll(Collection c) {
-        return false;
+        Object[] a = c.toArray();
+        int collectionSize = a.length;
+        checkSize(size + collectionSize);
+        System.arraycopy(a, 0, dataArray, size, collectionSize);
+        size += collectionSize;
+        if (collectionSize == 0)
+            return false;
+        else
+            return true;
     }
 
     @Override
     public boolean addAll(int index, Collection c) {
-        return false;
+        if (index < 0 || index >= size)
+            throw new IndexOutOfBoundsException("index out of bounds");
+        Object[] a = c.toArray();
+        int collectionSize = a.length;
+        checkSize(size + collectionSize);
+        int newPosition = size - index;
+        if (newPosition > 0)
+            System.arraycopy(dataArray, index, dataArray, index + collectionSize, newPosition);
+        System.arraycopy(a, 0, dataArray, index, collectionSize);
+        size += collectionSize;
+        if (collectionSize == 0)
+            return false;
+        else
+            return true;
     }
 
+    @Override
+    public Object[] toArray(Object[] a) {
+        return Arrays.copyOf(dataArray, size);
+    }
 
+    @Override
+    public boolean retainAll(Collection c) {
+        int newIndex = 0;
+        boolean modified = false;
+        for (int index = 0; index < size; index++) {
+            if (c.contains(dataArray[index]))
+                dataArray[newIndex++] = dataArray[index];
+        }
+        if (newIndex != size) {
+            for (int index = newIndex; index < size; index++)
+                dataArray[index] = null;
+            size = newIndex;
+            modified = true;
+        }
+        return modified;
+    }
+
+    @Override
+    public boolean removeAll(Collection c) {
+        int newIndex = 0;
+        boolean modified = false;
+        for (int index = 0; index < size; index++) {
+            if (!c.contains(dataArray[index]))
+                dataArray[newIndex++] = dataArray[index];
+        }
+        if (newIndex != size) {
+            for (int index = newIndex; index < size; index++)
+                dataArray[index] = null;
+            size = newIndex;
+            modified = true;
+        }
+        return modified;
+    }
+
+    @Override
+    public boolean containsAll(Collection<?> c) {
+        for (Object e : c)
+            if (!contains(e))
+                return false;
+        return true;
+    }
+
+    @Override
+    public Iterator iterator() {
+        return new MyIterator();
+    }
+
+    private class MyIterator implements Iterator<E> {
+        int currentPosition;
+        int previousPosition = -1;
+
+        MyIterator() {
+
+        }
+
+        @Override
+        public boolean hasNext() {
+            return currentPosition != size;
+        }
+
+        @Override
+        public E next() {
+            int index = currentPosition;
+            if (index >= size)
+                throw new NoSuchElementException();
+            Object[] dataArray = MyArrayList.this.dataArray;
+            if (index >= dataArray.length)
+                throw new ConcurrentModificationException();
+            currentPosition = index + 1;
+            previousPosition = index;
+            return (E) dataArray[previousPosition];
+        }
+    }
 
     @Override
     public ListIterator listIterator() {
@@ -145,25 +257,5 @@ public class MyArrayList<E> implements List<E> {
     @Override
     public List subList(int fromIndex, int toIndex) {
         return null;
-    }
-
-    @Override
-    public boolean retainAll(Collection c) {
-        return false;
-    }
-
-    @Override
-    public boolean removeAll(Collection c) {
-        return false;
-    }
-
-    @Override
-    public boolean containsAll(Collection c) {
-        return false;
-    }
-
-    @Override
-    public Object[] toArray(Object[] a) {
-        return new Object[0];
     }
 }
