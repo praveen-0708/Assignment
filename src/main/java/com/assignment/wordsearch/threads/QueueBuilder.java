@@ -1,6 +1,6 @@
-package com.assignment.wordSearch.Threads;
+package com.assignment.wordsearch.threads;
 
-import com.assignment.wordSearch.Threads.models.SearchInput;
+import com.assignment.wordsearch.threads.models.SearchInput;
 
 import java.io.File;
 import java.util.concurrent.BlockingQueue;

@@ -1,7 +1,4 @@
-package com.assignment.wordSearch.WordFinder;
-
-import com.assignment.wordSearch.Threads.models.SearchInput;
-import com.assignment.wordSearch.Threads.models.SearchResult;
+package com.assignment.wordsearch.wordfinder;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -11,12 +8,11 @@ import java.util.regex.Pattern;
 
 public class FindWord {
 
-    public List<IndividualSearchResult> checkFileForWord(File file, String word) {
+    public List<IndividualSearchResult> checkFileForWord(File file, String word) throws IOException {
         List<IndividualSearchResult> wordLocationsPerFile = new ArrayList<>();
-        FileReader fileReader = null;
         LineNumberReader lineNumberReader = null;
         try {
-            fileReader = new FileReader(file);
+            FileReader fileReader = new FileReader(file);
             lineNumberReader = new LineNumberReader(fileReader);
             String line;
             Pattern compile = Pattern.compile(word);
@@ -31,15 +27,11 @@ public class FindWord {
                     wordLocationsPerFile.add(individualSearchResult);
                 }
             }
-        } catch (Exception e) {
-            throw new RuntimeException("error in FindWord");
-        }
-        finally {
+        } finally {
             try {
-                if(fileReader!=null)
-                    fileReader.close();
-                if(lineNumberReader!=null)
+                if (lineNumberReader != null) {
                     lineNumberReader.close();
+                }
             } catch (IOException e) {
                 throw new RuntimeException("Error in closing readers");
             }

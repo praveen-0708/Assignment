@@ -113,8 +113,9 @@ public class MyArrayList<E> implements List<E> {
             throw new IndexOutOfBoundsException("index out of bounds");
         E oldElement = (E) dataArray[index];
         int newPosition = size - index - 1;
-        if (newPosition > 0)
+        if (newPosition > 0) {
             System.arraycopy(dataArray, index + 1, dataArray, index, newPosition);
+        }
         dataArray[--size] = null;
         return oldElement;
     }
@@ -233,8 +234,9 @@ public class MyArrayList<E> implements List<E> {
         @Override
         public E next() {
             int index = currentPosition;
-            if (index >= size)
+            if (index >= size) {
                 throw new NoSuchElementException();
+            }
             Object[] dataArray = MyArrayList.this.dataArray;
             if (index >= dataArray.length)
                 throw new ConcurrentModificationException();

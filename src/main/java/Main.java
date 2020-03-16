@@ -1,9 +1,8 @@
-import com.assignment.wordSearch.Threads.WordSearchSingleThread;
-import com.assignment.wordSearch.Threads.models.SearchInput;
-import com.assignment.wordSearch.Threads.models.SearchResult;
-import com.assignment.wordSearch.Threads.WordSearch;
-import com.assignment.wordSearch.Threads.WordSearchMultiThread;
-import com.assignment.wordSearch.WordFinder.IndividualSearchResult;
+import com.assignment.wordsearch.threads.WordSearchSingleThread;
+import com.assignment.wordsearch.threads.models.SearchInput;
+import com.assignment.wordsearch.threads.models.SearchResult;
+import com.assignment.wordsearch.threads.WordSearch;
+import com.assignment.wordsearch.wordfinder.IndividualSearchResult;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;

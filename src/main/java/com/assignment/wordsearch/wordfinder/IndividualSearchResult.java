@@ -1,4 +1,4 @@
-package com.assignment.wordSearch.WordFinder;
+package com.assignment.wordsearch.wordfinder;
 
 
 public class IndividualSearchResult implements Comparable<IndividualSearchResult> {
@@ -88,7 +88,8 @@ public class IndividualSearchResult implements Comparable<IndividualSearchResult
             } else {
                 return Integer.compare(this.getLineNumber(), o.getLineNumber());
             }
-        } else
+        } else {
             return this.getFileName().compareTo(o.getFileName());
+        }
     }
 }

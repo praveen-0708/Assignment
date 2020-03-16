@@ -1,6 +1,6 @@
-package com.assignment.wordSearch.Threads.models;
+package com.assignment.wordsearch.threads.models;
 
-import com.assignment.wordSearch.WordFinder.IndividualSearchResult;
+import com.assignment.wordsearch.wordfinder.IndividualSearchResult;
 
 import java.util.ArrayList;
 import java.util.List;

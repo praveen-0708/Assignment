@@ -1,9 +1,9 @@
-package com.assignment.wordSearch.Threads;
+package com.assignment.wordsearch.threads;
 
-import com.assignment.wordSearch.Threads.models.SearchInput;
-import com.assignment.wordSearch.Threads.models.SearchResult;
-import com.assignment.wordSearch.WordFinder.FindWord;
-import com.assignment.wordSearch.WordFinder.IndividualSearchResult;
+import com.assignment.wordsearch.threads.models.SearchInput;
+import com.assignment.wordsearch.threads.models.SearchResult;
+import com.assignment.wordsearch.wordfinder.FindWord;
+import com.assignment.wordsearch.wordfinder.IndividualSearchResult;
 import org.apache.log4j.Logger;
 
 import java.io.File;

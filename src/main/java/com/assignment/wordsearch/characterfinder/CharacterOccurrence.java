@@ -1,4 +1,4 @@
-package com.assignment.wordSearch.CharacterFinder;
+package com.assignment.wordsearch.characterfinder;
 
 import java.io.BufferedReader;
 import java.io.File;

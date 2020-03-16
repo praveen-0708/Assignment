@@ -1,7 +1,6 @@
-import com.assignment.wordSearch.Threads.*;
-import com.assignment.wordSearch.Threads.models.SearchInput;
-import com.assignment.wordSearch.Threads.models.SearchResult;
-import com.assignment.wordSearch.WordFinder.IndividualSearchResult;
+import com.assignment.wordsearch.threads.*;
+import com.assignment.wordsearch.threads.models.SearchInput;
+import com.assignment.wordsearch.threads.models.SearchResult;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import org.testng.Assert;
